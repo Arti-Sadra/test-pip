@@ -3,7 +3,7 @@ name: Flutter Pipeline
 on:
   push:
     branches:
-      - main2
+      - main
 
 jobs:
   build-android:
@@ -23,70 +23,14 @@ jobs:
         run: flutter build apk
         
       - name: Upload APK
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk       
 
-      - name: Save logs to a file
-        run: |
-          mkdir logs
-          mv build/app/outputs/apk/release/app-release.apk logs/app-release.apk
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+ 
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
-          name: Android Artifact
-          path: logs/
-          
-  
-
-  build-ios:
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-
-      - name: Flutter pub get
-        run: flutter pub get
-
-      - name: Build iOS app
-        run: flutter build ios --release --no-codesign
-
-      - name: Save logs to a file
-        run: |
-          mkdir logs
-          mv build/ios/iphoneos/Runner.app logs/Runner.app
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: iOS Artifact
-          path: logs/
-
-  build-github-page:
-    needs: [build-android, build-ios]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Git
-        run: git config --global user.name "GitHub Actions" && git config --global user.email "<>"
-
-      - name: Create output directory
-        run: |
-          mkdir output
-          cp -R logs output/
-
-      - name: Commit and push to GitHub Pages branch
-        run: |
-          git checkout -b gh-pages
-          git add .
-          git commit -m "Update GitHub Pages"
-          git push -u origin gh-pages
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
