@@ -2,10 +2,6 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Film {
-  final String id;
-  final String title;
-  final String description;
-  final bool isFavorite;
 
   const Film({
     required this.id,
@@ -13,6 +9,10 @@ class Film {
     required this.description,
     required this.isFavorite,
   });
+  final String id;
+  final String title;
+  final String description;
+  final bool isFavorite;
 
   Film copy({
     bool? isFavorite,

@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:testpip/models/film.dart';
 import 'package:testpip/providers/providers.dart';
-
-import '../models/film.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({
@@ -35,7 +33,7 @@ class HomePage extends ConsumerWidget {
 }
 
 class FilmsWidget extends ConsumerWidget {
-  const FilmsWidget({Key? key, required this.provider}) : super(key: key);
+  const FilmsWidget({required this.provider, Key? key}) : super(key: key);
 
   final AlwaysAliveProviderBase<Iterable<Film>> provider;
 
@@ -111,7 +109,7 @@ class FilterWidget extends StatelessWidget {
                 ),
               )
               .toList(),
-          onChanged: (value) {
+          onChanged: (FavoriteStatus? value) {
             // State is deprecated, change it
             // ref.read(favoriteStatusProvider.state).state = value!;
             ref.read(favoriteStatusProvider.notifier).state = value!;
