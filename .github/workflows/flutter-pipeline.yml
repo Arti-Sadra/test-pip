@@ -27,6 +27,19 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
+          
+      - name: Upload All files
+        uses: actions/upload-artifact@v3
+        with:
+          name: outputs
           path: build/app/outputs/*
           
-
+      - name: Send Notification
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const child_process = require('child_process');
+            child_process.execSync(
+              `echo "Your GitHub Action has finished." | sendmail -s "Action Notification" babai.sadra@gmail.com`
+            );
