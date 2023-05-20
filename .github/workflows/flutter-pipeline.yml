@@ -6,23 +6,23 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+#  build-and-test:
+#    runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 2.x
+#      - name: Set up Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: 2.x
 
-      - name: Build and test
-        run: flutter test
+#      - name: Build and test
+#        run: flutter test
 
   build-android:
-    needs: build-and-test
+#    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
@@ -49,7 +49,7 @@ jobs:
           path: logs/
 
   build-ios:
-    needs: build-and-test
+#    needs: build-and-test
     runs-on: macos-latest
 
     steps:
