@@ -15,11 +15,6 @@ jobs:
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '2.8.1'  # Update to the desired Flutter version
-
-      - name: Upgrade Dart SDK
-        run: flutter upgrade --dart-sdk-version 2.18.5
 
       - name: Flutter pub get
         run: flutter pub get
@@ -47,11 +42,6 @@ jobs:
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '2.8.1'  # Update to the desired Flutter version
-
-      - name: Upgrade Dart SDK
-        run: flutter upgrade --dart-sdk-version 2.18.5
 
       - name: Flutter pub get
         run: flutter pub get
@@ -69,3 +59,26 @@ jobs:
         with:
           name: iOS Artifact
           path: logs/
+
+  build-github-page:
+    needs: [build-android, build-ios]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: git config --global user.name "GitHub Actions" && git config --global user.email "<>"
+
+      - name: Create output directory
+        run: |
+          mkdir output
+          cp -R logs output/
+
+      - name: Commit and push to GitHub Pages branch
+        run: |
+          git checkout -b gh-pages
+          git add .
+          git commit -m "Update GitHub Pages"
+          git push -u origin gh-pages
