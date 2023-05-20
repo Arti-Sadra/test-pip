@@ -27,12 +27,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
-          path: build/app/outputs/apk/release/*
+          path: build/app/outputs/*
           
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.1.1
-        with:
-          # Artifact name
-          name: release-apk
-          # Destination path
-          path: build/app/outputs/apk/release/app-release.apk
+
