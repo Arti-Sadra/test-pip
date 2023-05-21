@@ -35,11 +35,3 @@ jobs:
           name: outputs
           path: build/app/outputs/*
           
-      - name: Send Notification
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const child_process = require('child_process');
-            child_process.execSync(
-              `echo "Your GitHub Action has finished." | sendmail -s "Action Notification" babai.sadra@gmail.com`
-            );
